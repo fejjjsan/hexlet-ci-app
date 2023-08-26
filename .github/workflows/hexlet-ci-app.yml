@@ -4,9 +4,19 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 19, 20]
+    name: ${{ matrix.node }}  
     steps:
       - uses: actions/checkout@v3
-      - run: make setup
-      - run: make start
-      - run: make test
-      - run: make lint
+      - name: Setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Setup
+        run: make setup
+      - name: Run test
+        run: make test
+      - name: Run linter
+        run: make lint
