@@ -1,6 +1,6 @@
 # Example app for CI Hexlet course
 
-Starting boilerplate of [Strapi](https://strapi.io/) application </ br>
+Starting boilerplate of [Strapi](https://strapi.io/) application </br>
 ![example workflow](https://github.com/fejjjsan/hexlet-ci-app/actions/workflows/hexlet-ci-app.yml/badge.svg)
 
 
