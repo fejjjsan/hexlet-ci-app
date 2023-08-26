@@ -2,7 +2,7 @@ name: hexlet-ci-app
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  build:
+  build-and-security-check:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -10,13 +10,18 @@ jobs:
     name: ${{ matrix.node }}  
     steps:
       - uses: actions/checkout@v3
-      - name: Setup
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Setup
+          cache: 'npm'
+      - name: Setup project
         run: make setup
       - name: Run test
         run: make test
       - name: Run linter
         run: make lint
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
